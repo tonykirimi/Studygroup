@@ -1,0 +1,37 @@
+---
+AWSTemplateFormatVersion: 2010-09-09
+Description: will live it in the hands of God
+Parameters:
+  MyKeyName: 
+    Type: AWS::EC2::KeyPair::KeyName
+    Description:  Choose the available key name in the region which will lunch our stack
+  MyInstanceType: 
+    Type: String 
+    Description: This is the instance type to choose from
+    Default: t2.micro
+    AllowedValues: 
+      - t2.micro
+      - t2.medium
+Metadata: # helps group my parameters in a more logical manner and add more descriptive labels.
+  AWS::CloudFormation::Interface:
+    ParameterGroups:
+      - Label:
+          default: "EC2 configuration"
+        Parameters:
+          - MyKeyName
+          - MyInstanceType
+Resources:
+  EC2Instanceresources:
+    Type: AWS::EC2::Instance
+    Properties:
+      ImageId: ami-0a54aef4ef3b5f881
+      InstanceType: !Ref MyInstanceType
+      KeyName: !Ref MyKeyName
+      SecurityGroups:
+        - default
+      Tags:
+        - Key: Fly
+          Value: South
+        - Key: Gate
+          Value: West
+...
